@@ -3,23 +3,26 @@ import tabbar from "@/components/tabbar/index.vue";
 // import NavBar from "@/components/nav-bar/index.vue";
 import { useCachedViewStoreHook } from "@/store/modules/cached-view";
 import { useDarkMode } from "@/composables/useToggleDarkMode";
-import { computed } from "vue";
+import { computed, reactive } from "vue";
 
 const cachedViews = computed(() => {
   return useCachedViewStoreHook().cachedViewList;
+});
+const themeVars = reactive({
+  primaryColor: "#fec54e"
 });
 </script>
 
 <template>
   <div class="app-wrapper">
-    <van-config-provider :theme="useDarkMode() ? 'dark' : 'light'">
-      <!-- <nav-bar /> -->
+    <van-config-provider :theme="useDarkMode() ? 'dark' : 'light'" :theme-vars="themeVars" theme-vars-scope="global">
+      <nav-bar />
       <router-view v-slot="{ Component }">
         <keep-alive :include="cachedViews">
           <component :is="Component" />
         </keep-alive>
       </router-view>
-      <tabbar />
+      <!-- <tabbar /> -->
     </van-config-provider>
   </div>
 </template>

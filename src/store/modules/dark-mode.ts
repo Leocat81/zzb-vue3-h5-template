@@ -10,9 +10,7 @@ export const useDarkModeStore = defineStore({
   }),
   actions: {
     toggleDarkMode(event?: TouchEvent | MouseEvent) {
-      const isAppearanceTransition =
-        "startViewTransition" in document &&
-        !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const isAppearanceTransition = "startViewTransition" in document && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       const toggle = () => {
         this.darkMode = !this.darkMode;
@@ -36,10 +34,7 @@ export const useDarkModeStore = defineStore({
         x = window.innerWidth;
         y = 0;
       }
-      const endRadius = Math.hypot(
-        Math.max(x, window.innerWidth - x),
-        Math.max(y, window.innerHeight - y)
-      );
+      const endRadius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
 
       const transition = (document as any).startViewTransition(async () => {
         toggle();
@@ -47,10 +42,7 @@ export const useDarkModeStore = defineStore({
       });
 
       transition.ready.then(() => {
-        const clipPath = [
-          `circle(0px at ${x}px ${y}px)`,
-          `circle(${endRadius}px at ${x}px ${y}px)`
-        ];
+        const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`];
         document.documentElement.animate(
           {
             clipPath: this.darkMode ? [...clipPath].reverse() : clipPath
@@ -58,9 +50,7 @@ export const useDarkModeStore = defineStore({
           {
             duration: 400,
             easing: "ease-out",
-            pseudoElement: this.darkMode
-              ? "::view-transition-old(root)"
-              : "::view-transition-new(root)"
+            pseudoElement: this.darkMode ? "::view-transition-old(root)" : "::view-transition-new(root)"
           }
         );
       });

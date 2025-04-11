@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import {
-  useDarkMode,
-  useToggleDarkMode
-} from "@/composables/useToggleDarkMode";
+import { useDarkMode, useToggleDarkMode } from "@/composables/useToggleDarkMode";
 
 const onClickRight = (event: TouchEvent | MouseEvent) => {
   useToggleDarkMode(event);
@@ -10,9 +7,9 @@ const onClickRight = (event: TouchEvent | MouseEvent) => {
 </script>
 
 <template>
-  <van-nav-bar fixed placeholder @click-right="onClickRight">
+  <van-nav-bar left-text="返回" left-arrow fixed placeholder>
     <template #right>
-      <svg-icon class="text-[18px]" :name="useDarkMode() ? 'light' : 'dark'" />
+      <div id="navbar_right"></div>
     </template>
   </van-nav-bar>
 </template>
